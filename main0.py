@@ -1,7 +1,5 @@
 import tkinter as tk
 
-print('hello')
-
 reader = ''
 def readDisplay(new):
     global reader
