@@ -7,30 +7,66 @@ def readDisplay(new):
     return reader
 
 ready = False
+plus = False
+minus = False
+multiplication = False
+division = False
+modulo = False
+intDivision = False
+exponent = False
 
 def equalsFunction():
     global number1
     global number2
+    global reader
     global plus
     global minus
     global multiplication
     global division
+    global modulo
+    global intDivision
+    global exponent
     global ready
     if ready:
         number2 = reader
         if plus:
-            solution = int(number1) + int(number2)
+            solution = float(number1) + float(number2)
             plus = False
         elif minus:
-            solution = int(number1) - int(number2)
-            minus 
+            solution = float(number1) - float(number2)
+            minus = False
         elif multiplication:
-            solution = int(number1) * int(number2)
+            solution = float(number1) * float(number2)
+            multiplication = False
         elif division:
-            sulution = int(number1) / int(number2)
-        display.set_text(solution)
-        number1 = str(solution)
+            solution = float(number1) / float(number2)
+            division = False
+        elif modulo:
+            solution = float(number1) % int(number2)
+            modulo = False
+        elif intDivision:
+            solution = float(number1) // float(number2)
+            intDivision = False
+        elif exponent:
+            solution = float(number1) ** float(number2)
+            exponent = False
+        if solution == int(solution):
+            solution = int(solution)
+        reader = str(solution)
+        display.set_text(reader)
         ready = False
+
+def eraseFunction():
+    print('hello')
+    global ready
+    global number1
+    global number2
+    global reader
+    ready = False
+    number1 = False
+    number2 = False
+    reader = ''
+    display.set_text('')
 
 def plusFunction():
     global reader
@@ -54,6 +90,7 @@ def minusFunction():
         ready = True
         minus = True
         display.add_text('-')
+        reader = ''
 
 def multiplicationFunction():
     global reader
@@ -65,6 +102,7 @@ def multiplicationFunction():
         ready = True
         multiplication = True
         display.add_text('*')
+        reader = ''
 
 def divisionFunction():
     global reader
@@ -76,6 +114,43 @@ def divisionFunction():
         ready = True
         division = True
         display.add_text('/')
+        reader = ''
+
+def moduloFunction():
+    global reader
+    global number1
+    global ready
+    global modulo
+    if not ready:
+        number1 = reader
+        ready = True
+        modulo = True
+        display.add_text('%')
+        reader = ''
+
+def intDivisionFunction():
+    global reader
+    global number1
+    global ready
+    global intDivision
+    if not ready:
+        number1 = reader
+        ready = True
+        intDivision = True
+        display.add_text('//')
+        reader = ''
+
+def exponentFunction():
+    global reader
+    global number1
+    global ready
+    global exponent
+    if not ready:
+        number1 = reader
+        ready = True
+        exponent = True
+        display.add_text('^')
+        reader = ''
 
 class Cell():
     def __init__(self):
@@ -83,13 +158,13 @@ class Cell():
         self.operations = {
 "=": lambda: equalsFunction(),
 "+": lambda: plusFunction(),
-"-": lambda: minusFuction(),
-"/": lambda: divisionFunctioin(),
+"-": lambda: minusFunction(),
+"/": lambda: divisionFunction(),
 "*": lambda: multiplicationFunction(),
-"%": lambda: display.add_text('%'),
-"C": lambda: display.add_text(''),
-"//": lambda: display.add_text('//'),
-"^": lambda: display.add_text('^')
+"%": lambda: moduloFunction(),
+"C": lambda: eraseFunction(),
+"//": lambda: intDivisionFunction(),
+"^": lambda: exponentFunction()
 }
         
         
