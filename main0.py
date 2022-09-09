@@ -19,37 +19,20 @@ def equalsFunction():
     global number1
     global number2
     global reader
-    global plus
-    global minus
-    global multiplication
-    global division
-    global modulo
-    global intDivision
-    global exponent
     global ready
+    global operation
     if ready:
         number2 = reader
-        if plus:
-            solution = float(number1) + float(number2)
-            plus = False
-        elif minus:
-            solution = float(number1) - float(number2)
-            minus = False
-        elif multiplication:
-            solution = float(number1) * float(number2)
-            multiplication = False
-        elif division:
-            solution = float(number1) / float(number2)
-            division = False
-        elif modulo:
-            solution = float(number1) % int(number2)
-            modulo = False
-        elif intDivision:
-            solution = float(number1) // float(number2)
-            intDivision = False
-        elif exponent:
-            solution = float(number1) ** float(number2)
-            exponent = False
+        operationFunctions = {
+            '+': float(number1) + float(number2),
+            '-': float(number1) - float(number2),
+            '*': float(number1) * float(number2),
+            '/': float(number1) / float(number2),
+            '%': float(number1) % float(number2),
+            '//': float(number1) // float(number2),
+            '^': float(number1) ** float(number2)
+            }
+        solution = operationFunctions[operation]
         if solution == int(solution):
             solution = int(solution)
         reader = str(solution)
@@ -57,116 +40,36 @@ def equalsFunction():
         ready = False
 
 def eraseFunction():
-    print('hello')
     global ready
     global number1
     global number2
     global reader
+    global operation
     ready = False
-    number1 = False
-    number2 = False
+    number1 = None
+    number2 = None
     reader = ''
     display.set_text('')
 
-def plusFunction():
+def operations(op):
     global reader
     global number1
     global ready
-    global plus
-    if not ready:
+    global operation
+    if op == '=':
+        equalsFunction()
+    elif op == 'C':
+        eraseFunction()
+    elif not ready:
         number1 = reader
         ready = True
-        plus = True
-        display.add_text('+')
-        reader = ''
-
-def minusFunction():
-    global reader
-    global number1
-    global ready
-    global minus
-    if not ready:
-        number1 = reader
-        ready = True
-        minus = True
-        display.add_text('-')
-        reader = ''
-
-def multiplicationFunction():
-    global reader
-    global number1
-    global ready
-    global multiplication
-    if not ready:
-        number1 = reader
-        ready = True
-        multiplication = True
-        display.add_text('*')
-        reader = ''
-
-def divisionFunction():
-    global reader
-    global number1
-    global ready
-    global division
-    if not ready:
-        number1 = reader
-        ready = True
-        division = True
-        display.add_text('/')
-        reader = ''
-
-def moduloFunction():
-    global reader
-    global number1
-    global ready
-    global modulo
-    if not ready:
-        number1 = reader
-        ready = True
-        modulo = True
-        display.add_text('%')
-        reader = ''
-
-def intDivisionFunction():
-    global reader
-    global number1
-    global ready
-    global intDivision
-    if not ready:
-        number1 = reader
-        ready = True
-        intDivision = True
-        display.add_text('//')
-        reader = ''
-
-def exponentFunction():
-    global reader
-    global number1
-    global ready
-    global exponent
-    if not ready:
-        number1 = reader
-        ready = True
-        exponent = True
-        display.add_text('^')
+        operation = op
+        display.add_text(op)
         reader = ''
 
 class Cell():
     def __init__(self):
         self.cell = None
-        self.operations = {
-"=": lambda: equalsFunction(),
-"+": lambda: plusFunction(),
-"-": lambda: minusFunction(),
-"/": lambda: divisionFunction(),
-"*": lambda: multiplicationFunction(),
-"%": lambda: moduloFunction(),
-"C": lambda: eraseFunction(),
-"//": lambda: intDivisionFunction(),
-"^": lambda: exponentFunction()
-}
-        
         
     def create_number_btn(self, loc, num, widthX, heightY, posx, posy):
         self.cell = tk.Button(
@@ -181,7 +84,7 @@ class Cell():
     def create_operation_btn(self, loc, operation, widthX, heightY, posx, posy):
         self.cell = tk.Button(
             loc,
-            command = self.operations[operation],
+            command = lambda: operations(operation),
             text = operation,
             width = widthX,
             height = heightY
