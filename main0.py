@@ -107,7 +107,6 @@ class Cell():
     def add_text(self, newText):
         addText = readDisplay(str(newText))
         self.cell.config(text = addText)
-        
 
 root = tk.Tk()
 
@@ -120,8 +119,7 @@ display_frame = tk.Frame(
     root,
     bg = '#e0e0e0',
     width = 360,
-    height = 80
-    )
+    height = 80)
 
 display_frame.place(x=0,y=0)
 
@@ -129,8 +127,7 @@ operation_frame_1 = tk.Frame(
     root,
     bg = '#e0e0e0',
     width = 90,
-    height = 400
-    )
+    height = 400)
 
 operation_frame_1.place(x=270, y=80)
 
@@ -138,8 +135,7 @@ numbers_frame = tk.Frame(
     root,
     bg = '#e0e0e0',
     width = 270,
-    height = 320
-    )
+    height = 320)
 
 numbers_frame.place(x=0, y=160)
 
@@ -147,17 +143,14 @@ operation_frame_2 = tk.Frame(
     root,
     bg = '#e0e0e0',
     width = 270,
-    height = 80
-    )
+    height = 80)
 
 operation_frame_2.place(x = 0, y = 80)
-
 
 number_btn_list = []
 operations_btn_list = []
 
 i=0
-
 for x in range(3):
     for y in range(3):
         i=i+1
