@@ -17,7 +17,6 @@ def equalsFunction():
             '*': float(number1) * float(number2),
             '/': float(number1) / float(number2),
             '%': float(number1) % float(number2),
-            '//': float(number1) // float(number2),
             '^': float(number1) ** float(number2)
             }
         solution = operationFunctions[operation]
@@ -39,6 +38,9 @@ def eraseFunction():
     reader = ''
     display.set_text('')
 
+def pmFunction():
+    global number1
+
 def operations(op):
     global reader
     global number1
@@ -48,6 +50,13 @@ def operations(op):
         equalsFunction()
     elif op == 'C':
         eraseFunction()
+    elif op == '+/-':
+        number1 = (-1) * float(reader)
+        if number1 == int(number1):
+            number1 = int(number1)
+        number1 = str(number1)
+        display.set_text(number1)
+        reader = number1
     elif not ready:
         number1 = reader
         ready = True
@@ -164,7 +173,7 @@ number_btn_list[9].create_number_btn(numbers_frame, 0, 10, 3, 9, 235)
 number_btn_list.append(NumberCell())
 number_btn_list[10].create_number_btn(numbers_frame, '.', 10, 3, 93, 235)
 
-operation_list = ['+', '-', '/', '*', '%', 'C', '//', '^']
+operation_list = ['+', '-', '/', '*', '%', 'C', '+/-', '^']
 
 for i in range(5):
     operations_btn_list.append(OperationCell())
