@@ -152,14 +152,17 @@ number_btn_list = []
 operations_btn_list = []
 
 i=0
-for x in range(3):
-    for y in range(3):
+for y in range(3):
+    for x in range(3):
         i=i+1
         number_btn_list.append(NumberCell())
-        number_btn_list[x + y].create_number_btn(numbers_frame, i, 10, 3, 9 + 84 * y, 10 + 75 * x)
+        number_btn_list[x + y].create_number_btn(numbers_frame, i, 10, 3, 9 + 84 * x, 10 + 75 * y)
 
 number_btn_list.append(NumberCell())
 number_btn_list[9].create_number_btn(numbers_frame, 0, 10, 3, 9, 235)
+
+number_btn_list.append(NumberCell())
+number_btn_list[10].create_number_btn(numbers_frame, '.', 10, 3, 93, 235)
 
 operation_list = ['+', '-', '/', '*', '%', 'C', '//', '^']
 
@@ -168,7 +171,7 @@ for i in range(5):
     operations_btn_list[i].create_operation_btn(operation_frame_1, operation_list[i], 10, 3, 0, 14 + 75 * i)
     
 operations_btn_list.append(OperationCell())
-operations_btn_list[5].create_operation_btn(numbers_frame, '=', 22, 3, 93, 235)
+operations_btn_list[5].create_operation_btn(numbers_frame, '=', 10, 3, 93+84, 235)
 
 for i in range(5,8):
     operations_btn_list.append(OperationCell())
